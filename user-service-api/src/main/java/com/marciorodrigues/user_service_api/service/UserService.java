@@ -1,11 +1,10 @@
 package com.marciorodrigues.user_service_api.service;
 
-import com.marciorodrigues.user_service_api.entity.User;
 import com.marciorodrigues.user_service_api.mapper.UserMapper;
 import com.marciorodrigues.user_service_api.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import models.exceptions.ResourceNotFoundExceptions;
+import models.requests.CreateUserRequest;
 import models.responses.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +28,7 @@ public class UserService {
 
     }
 
+    public void save(CreateUserRequest createUserRequest) {
+        userRepository.save(userMapper.fromRequest(createUserRequest));
+    }
 }
