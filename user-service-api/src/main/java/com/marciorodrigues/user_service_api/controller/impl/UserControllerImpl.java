@@ -4,6 +4,7 @@ import com.marciorodrigues.user_service_api.controller.UserController;
 import com.marciorodrigues.user_service_api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import models.responses.UserResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserControllerImpl implements UserController {
 
-    private final UserService userService;
+    @Autowired
+    private  UserService userService;
+
+
     @Override
     public ResponseEntity<UserResponse> findById(String id) {
         return ResponseEntity.ok().body(userService.findById(id));

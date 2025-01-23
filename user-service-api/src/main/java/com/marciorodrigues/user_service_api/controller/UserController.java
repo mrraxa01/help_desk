@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users")
 public interface UserController {
 
+
     @GetMapping("/{id}")
     ResponseEntity<UserResponse> findById(@PathVariable(name = "id") final String id);
+
+
 
 }
