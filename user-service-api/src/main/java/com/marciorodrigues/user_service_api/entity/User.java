@@ -1,9 +1,6 @@
 package com.marciorodrigues.user_service_api.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.With;
+import lombok.*;
 import models.enums.ProfileEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,4 +21,6 @@ public class User {
     private String password;
 
     private Set<ProfileEnum> profiles;
+
+
 }

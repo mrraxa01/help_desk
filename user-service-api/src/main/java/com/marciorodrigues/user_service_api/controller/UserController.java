@@ -8,11 +8,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import models.exceptions.StandardError;
+import models.exceptions.ValidationException;
 import models.requests.CreateUserRequest;
 import models.responses.UserResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Tag(name = "UsersController", description = "Controller responsible for users operations")
 @RequestMapping("/api/users")
@@ -42,7 +45,7 @@ public interface UserController {
             @ApiResponse(responseCode = "400", description = "Bad Request",
                 content = @Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        schema = @Schema(implementation = StandardError.class)
+                        schema = @Schema(implementation = ValidationException.class)
                 )),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(
                     mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -50,6 +53,6 @@ public interface UserController {
             ))
     })
     @PostMapping
-    ResponseEntity<Void> save(@RequestBody final CreateUserRequest createUserRequest);
+    ResponseEntity<Void> save(@Valid @RequestBody final CreateUserRequest createUserRequest);
 
 }

@@ -7,6 +7,7 @@ import models.exceptions.ResourceNotFoundExceptions;
 import models.requests.CreateUserRequest;
 import models.responses.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +30,14 @@ public class UserService {
     }
 
     public void save(CreateUserRequest createUserRequest) {
+        verifyIfEmailAlreadyExists(createUserRequest.email(), null);
         userRepository.save(userMapper.fromRequest(createUserRequest));
+    }
+
+    private void verifyIfEmailAlreadyExists (final String email, final String id){
+        userRepository.findByEmail(email)
+                .filter(user -> !user.getId().equals(id))
+                .ifPresent(user ->{throw new DataIntegrityViolationException("Email [" +email + "]Already exists!");}
+                    );
     }
 }
