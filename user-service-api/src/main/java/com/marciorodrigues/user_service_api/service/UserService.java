@@ -37,7 +37,7 @@ public class UserService {
     private void verifyIfEmailAlreadyExists (final String email, final String id){
         userRepository.findByEmail(email)
                 .filter(user -> !user.getId().equals(id))
-                .ifPresent(user ->{throw new DataIntegrityViolationException("Email [" +email + "]Already exists!");}
+                .ifPresent(user ->{throw new DataIntegrityViolationException("Email [" +email + "] Already exists!");}
                     );
     }
 }
