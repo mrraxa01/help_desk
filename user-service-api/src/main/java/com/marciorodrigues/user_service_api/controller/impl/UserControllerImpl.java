@@ -4,6 +4,7 @@ import com.marciorodrigues.user_service_api.controller.UserController;
 import com.marciorodrigues.user_service_api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import models.requests.CreateUserRequest;
+import models.requests.UpdateUserRequest;
 import models.responses.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,5 +35,10 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity<Void> save(final CreateUserRequest createUserRequest) {
         userService.save(createUserRequest);
         return ResponseEntity.status(HttpStatus.CREATED.value()).build();
+    }
+
+    @Override
+    public ResponseEntity<UserResponse> update(final String id, final UpdateUserRequest updateUserRequest) {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(userService.update(id, updateUserRequest));
     }
 }
