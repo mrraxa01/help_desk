@@ -25,3 +25,4 @@ public record UpdateUserRequest(
         @Schema(description = "User profiles", example = "[\"ROLE_ADMIN\", \"ROLE_CUSTOMER(default)\", \"ROLE_TECHNICIAN\"]")
         Set<ProfileEnum> profiles
 ) {}
+
