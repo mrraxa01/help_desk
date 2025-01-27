@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -26,7 +29,12 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundExceptions(
                         "Object not found! ID: " + id + "Type: " + UserResponse.class.getSimpleName()
                 )));
+    }
 
+    public List<UserResponse> findByAll(){
+        return userRepository.findAll()
+                .stream().map(userMapper::fromEntity)
+                .toList();
     }
 
     public void save(CreateUserRequest createUserRequest) {
