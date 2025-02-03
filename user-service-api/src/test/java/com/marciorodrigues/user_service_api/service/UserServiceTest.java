@@ -5,6 +5,7 @@ import com.marciorodrigues.user_service_api.mapper.UserMapper;
 import com.marciorodrigues.user_service_api.repository.UserRepository;
 import models.exceptions.ResourceNotFoundExceptions;
 import models.requests.CreateUserRequest;
+import models.requests.UpdateUserRequest;
 import models.responses.UserResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -103,4 +104,64 @@ class UserServiceTest {
         Mockito.verify(userMapper, Mockito.times(0)).fromRequest(request);
         Mockito.verify(encoder, Mockito.times(0)).encode(request.password());
         Mockito.verify(repository, Mockito.times(0)).save(ArgumentMatchers.any(User.class));
-    }}
+    }
+
+    @Test
+    void whenCallUpdateWithInvalidIdThenThrowResourceNotFoundException(){
+        final var request = generatedMock(UpdateUserRequest.class);
+        Mockito.when(repository.findById(ArgumentMatchers.anyString())).thenReturn(Optional.empty());
+
+        try {
+            service.update("1", request);
+        }catch (Exception e){
+            assertEquals(ResourceNotFoundExceptions.class, e.getClass());
+            assertEquals("Object not found! ID: 1Type: UserResponse", e.getMessage());
+        }
+
+        Mockito.verify(repository).findById("1");
+        Mockito.verify(userMapper, Mockito.times(0)).update(Mockito.any(), Mockito.any());
+        Mockito.verify(repository, Mockito.times(0)).save(ArgumentMatchers.any(User.class));
+    }
+
+    @Test
+    void whenCallUpdateWithInvalidEmailThenThrowDataIntegrityViolationException() {
+        final var request = generatedMock(UpdateUserRequest.class);
+        final var entity = generatedMock(User.class);
+        Mockito.when(repository.findById(ArgumentMatchers.anyString())).thenReturn(Optional.of(entity));
+        Mockito.when(repository.findByEmail(ArgumentMatchers.anyString())).thenReturn(Optional.of(entity));
+
+        try {
+            service.update("1", request);
+        } catch (Exception e) {
+            assertEquals(DataIntegrityViolationException.class, e.getClass());
+            assertEquals("Email [" + request.email() + "] Already exists!", e.getMessage());
+        }
+
+        Mockito.verify(repository).findById(ArgumentMatchers.anyString());
+        Mockito.verify(repository).findByEmail(request.email());
+        Mockito.verify(userMapper, Mockito.times(0)).update(Mockito.any(), Mockito.any());
+        Mockito.verify(encoder, Mockito.times(0)).encode(request.password());
+        Mockito.verify(repository, Mockito.times(0)).save(ArgumentMatchers.any(User.class));
+    }
+
+    @Test
+    void whenCallUpdateThenSuccess(){
+        final var id = "1";
+        final var request = generatedMock(UpdateUserRequest.class);
+        final var entity = generatedMock(User.class);
+        Mockito.when(repository.findById(ArgumentMatchers.anyString())).thenReturn(Optional.of(entity));
+        Mockito.when(repository.findByEmail(ArgumentMatchers.anyString())).thenReturn(Optional.empty());
+        Mockito.when(userMapper.update(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(entity);
+        Mockito.when(encoder.encode(Mockito.anyString())).thenReturn("encoded");
+        Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(new User());
+
+        final var response = service.update("1", request);
+
+;
+        Mockito.verify(repository).findById(ArgumentMatchers.anyString());
+        Mockito.verify(repository).findByEmail(request.email());
+        Mockito.verify(userMapper).update(request, entity);
+        Mockito.verify(encoder).encode(request.password());
+        Mockito.verify(repository).save(ArgumentMatchers.any(User.class));
+
+}}
