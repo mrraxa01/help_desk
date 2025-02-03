@@ -59,7 +59,7 @@ public class UserService {
     private User find(final String id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundExceptions(
-                        "Object not found! ID: " + id + "Type: " + UserResponse.class.getSimpleName()
+                        "Object not found! ID: " + id + " Type: " + UserResponse.class.getSimpleName()
                 ));
     }
     private void verifyIfEmailAlreadyExists (final String email, final String id){
