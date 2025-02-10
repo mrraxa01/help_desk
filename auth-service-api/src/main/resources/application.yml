@@ -4,3 +4,9 @@ spring:
 server:
   port: 8081
 
+
+jwt.secret: "TFTxH3nP/L9yZNCGKddlB4z4IrOJABBKb0ZDGQcCwjrF4cwSMo/7miqrQv4jeMiObhZ6SN7lZtwLKZ5LCWGjGCH35ZJ1nVdB3Jat96iz3LI="
+
+jwt.expiration: 120000
+
+
