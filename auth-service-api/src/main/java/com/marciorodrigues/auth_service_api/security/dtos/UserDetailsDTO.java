@@ -4,12 +4,16 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Getter
 @Builder
-public class UserDetailsDTO implements UserDetails {
+public class UserDetailsDTO implements UserDetails, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String name;
@@ -28,7 +32,7 @@ public class UserDetailsDTO implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.password;
+        return this.username;
     }
 
     @Override

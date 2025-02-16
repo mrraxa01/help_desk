@@ -1,5 +1,6 @@
 package com.marciorodrigues.auth_service_api.controllers;
 
+import com.marciorodrigues.auth_service_api.models.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,10 +11,9 @@ import models.exceptions.StandardError;
 import models.requests.AuthenticateRequest;
 import models.responses.AuthenticationResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
 @RequestMapping("/api/auth")
 public interface AuthController {
 

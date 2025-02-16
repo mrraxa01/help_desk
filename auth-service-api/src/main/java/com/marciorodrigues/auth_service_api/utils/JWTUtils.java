@@ -1,6 +1,7 @@
 package com.marciorodrigues.auth_service_api.utils;
 
 import com.marciorodrigues.auth_service_api.security.dtos.UserDetailsDTO;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,4 +27,15 @@ public class JWTUtils {
                 .setExpiration(new Date(System.currentTimeMillis()+ expiration))
                 .compact();
     }
+
+//    public Claims parseToken(String token) {
+//        try {
+//            return Jwts.parser()
+//                    .setSigningKey(secret.getBytes())
+//                    .parseClaimsJws(token)
+//                    .getBody();
+//        } catch (Exception e) {
+//            return null; // Token inválido
+//        }
+//    }
 }
