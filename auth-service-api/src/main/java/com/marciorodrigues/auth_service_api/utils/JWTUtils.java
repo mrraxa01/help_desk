@@ -1,13 +1,11 @@
 package com.marciorodrigues.auth_service_api.utils;
 
 import com.marciorodrigues.auth_service_api.security.dtos.UserDetailsDTO;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
