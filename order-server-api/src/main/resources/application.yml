@@ -1,16 +1,11 @@
 spring:
+  profiles:
+    active:
+      ${ACTIVE_PROFILE}
   application:
-    name: order-server-api
-
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: password
-    hikari:
-      maximumPoolSize: 10
-  jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-
+    name: 'order-server-api'
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URI}
+server:
+  port: ${SERVER_PORT:8083}
