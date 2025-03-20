@@ -35,7 +35,9 @@ dependencies {
 //        because('Starter para integração com o Eureka Discovery Client')
 //    }
 
-
+    implementation('org.springframework.cloud:spring-cloud-starter-bootstrap') {
+        because('Starter para configuração do Spring Cloud Config')
+    }
 
     implementation('org.springframework.boot:spring-boot-starter-data-jpa') {
         because('Starter para integração com o Spring Data JPA')
@@ -60,18 +62,23 @@ dependencies {
     implementation ('org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4') {
         because('Starter para integrar com o SpringDoc OpenAPI e adicionar documentação ao projeto')
     }
+
+
 //    implementation('org.springframework.cloud:spring-cloud-starter-openfeign') {
 //        because('Starter para integração com o Spring Cloud OpenFeign')
 //    }
 //
-    implementation('com.h2database:h2:2.1.214') {
-        because('Banco de dados H2 para testes em memória')
-    }
+//    implementation('com.h2database:h2:2.1.214') {
+//        because('Banco de dados H2 para testes em memória')
+//    }
 //    implementation 'com.h2database:h2:2.1.214'
     // Lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+//    compileOnly 'org.projectlombok:lombok'
+//    annotationProcessor 'org.projectlombok:lombok'
 
+    implementation ('org.springframework.cloud:spring-cloud-starter-config') {
+        because('Starter para integrar com o Spring Cloud Config Server')
+    }
 
 
     // Binding para o MapStruct com Lombok
