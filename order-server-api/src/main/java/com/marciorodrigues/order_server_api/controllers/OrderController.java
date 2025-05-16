@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import models.exceptions.StandardError;
 import models.exceptions.ValidationException;
 import models.requests.CreateOrderRequest;
-import models.requests.CreateUserRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +41,4 @@ public interface OrderController {
     })
     @PostMapping
     ResponseEntity<Void> save(@Valid @RequestBody final CreateOrderRequest createOrderRequest);
-
-
 }
