@@ -7,15 +7,14 @@ import java.util.Arrays;
 
 import static lombok.AccessLevel.PRIVATE;
 
+@Getter
 @AllArgsConstructor(access = PRIVATE)
 public enum OrderStatusEnum {
 
     OPEN("Open"),
     IN_PROGRESS("In Progress"),
     CLOSED("Closed"),
-
     CANCELED("Canceled");
-    @Getter
     private final String description;
 
     public static OrderStatusEnum toEnum(final String description) {

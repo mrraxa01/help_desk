@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Tag(name = "OrderController", description = "Controller responsible for managing orders")
 @RequestMapping("/api/orders")
-public interface OrderController {
+public interface  OrderController {
 
     @Operation(summary = "Create Order")
     @ApiResponses(value = {

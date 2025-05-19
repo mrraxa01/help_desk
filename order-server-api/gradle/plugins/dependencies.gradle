@@ -72,20 +72,22 @@ dependencies {
 //        because('Banco de dados H2 para testes em memória')
 //    }
 //    implementation 'com.h2database:h2:2.1.214'
-    // Lombok
-//    compileOnly 'org.projectlombok:lombok'
-//    annotationProcessor 'org.projectlombok:lombok'
+
+
 
     implementation ('org.springframework.cloud:spring-cloud-starter-config') {
         because('Starter para integrar com o Spring Cloud Config Server')
     }
 
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
 
     // Binding para o MapStruct com Lombok
     implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
     // MapStruct
-    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'--
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
