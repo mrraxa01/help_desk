@@ -4,6 +4,8 @@ import com.marciorodrigues.order_server_api.controllers.OrderController;
 import com.marciorodrigues.order_server_api.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import models.requests.CreateOrderRequest;
+import models.requests.UpdateOrderRequest;
+import models.responses.OrderResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +21,10 @@ public class OrderControllerImpl implements OrderController {
     public ResponseEntity<Void> save(CreateOrderRequest createOrderRequest) {
         orderService.save(createOrderRequest);
         return ResponseEntity.status(CREATED).build();
+    }
+
+    @Override
+    public ResponseEntity<OrderResponse> update(final Long orderId, UpdateOrderRequest updateOrderRequest) {
+        return ResponseEntity.ok().body(orderService.update(orderId, updateOrderRequest));
     }
 }
