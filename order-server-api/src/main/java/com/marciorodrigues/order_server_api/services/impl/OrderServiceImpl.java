@@ -12,8 +12,6 @@ import models.requests.UpdateOrderRequest;
 import models.responses.OrderResponse;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 import static java.time.LocalDateTime.now;
 
 @Service
@@ -27,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
     public Order findById(final Long orderId) {
         return orderRepository
                 .findById(orderId)
-                .orElseThrow(()-> new ResourceNotFoundExceptions(
+                .orElseThrow(() -> new ResourceNotFoundExceptions(
                         "Object not found. Id : " + orderId + ", Type: " + Order.class.getSimpleName()
                 ));
     }
@@ -42,14 +40,13 @@ public class OrderServiceImpl implements OrderService {
         Order entity = findById(orderId);
         entity = orderMapper.fromRequest(entity, updateOrderRequest);
 
-        if (updateOrderRequest.status()!=null &&
+        if (updateOrderRequest.status() != null &&
                 updateOrderRequest.status().equals(OrderStatusEnum.CLOSED.getDescription()))
             entity.setClosedAt(now());
 
 
         return orderMapper.fromEntity(orderRepository.save(entity));
     }
-
 
 
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import models.exceptions.StandardError;
 import models.exceptions.ValidationException;
 import models.requests.CreateOrderRequest;
@@ -21,6 +22,34 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "OrderController", description = "Controller responsible for managing orders")
 @RequestMapping("/api/orders")
 public interface  OrderController {
+    @Operation(summary = "Find Order by Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Order Found",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = OrderResponse.class)
+                    )),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = StandardError.class)
+                    )),
+            @ApiResponse(responseCode = "404", description = "Order Not Found",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = StandardError.class)
+                    )),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = StandardError.class)
+            ))
+    })
+    @GetMapping("/{id}")
+    ResponseEntity<OrderResponse> findById(
+            @NotNull(message = "OrderId cannot be null")
+            @Parameter(description = "OrderId", required = true, example = "10")
+            @PathVariable(name = "id") Long orderId
+    );
 
     @Operation(summary = "Create Order")
     @ApiResponses(value = {
