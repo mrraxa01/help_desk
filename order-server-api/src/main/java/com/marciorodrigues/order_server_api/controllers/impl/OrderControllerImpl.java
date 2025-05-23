@@ -10,6 +10,8 @@ import models.responses.OrderResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 
@@ -23,6 +25,11 @@ public class OrderControllerImpl implements OrderController {
     @Override
     public ResponseEntity<OrderResponse> findById(Long orderId) {
         return ResponseEntity.ok().body(orderMapper.fromEntity(orderService.findById(orderId)));
+    }
+
+    @Override
+    public ResponseEntity<List<OrderResponse>> findAll() {
+        return ResponseEntity.ok().body(orderMapper.fromEntities(orderService.findAll()));
     }
 
     @Override

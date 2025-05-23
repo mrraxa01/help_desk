@@ -12,6 +12,8 @@ import models.requests.UpdateOrderRequest;
 import models.responses.OrderResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static java.time.LocalDateTime.now;
 
 @Service
@@ -28,6 +30,11 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new ResourceNotFoundExceptions(
                         "Object not found. Id : " + orderId + ", Type: " + Order.class.getSimpleName()
                 ));
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
     }
 
     @Override
