@@ -4,6 +4,7 @@ import com.marciorodrigues.order_server_api.entities.Order;
 import models.requests.CreateOrderRequest;
 import models.requests.UpdateOrderRequest;
 import models.responses.OrderResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface OrderService {
     void delete(Long id);
 
 
-
+    Page<Order> findAllPaginated(Integer page, Integer size, String direction, String orderBy);
 }

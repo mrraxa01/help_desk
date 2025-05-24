@@ -10,6 +10,8 @@ import models.exceptions.ResourceNotFoundExceptions;
 import models.requests.CreateOrderRequest;
 import models.requests.UpdateOrderRequest;
 import models.responses.OrderResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,6 +60,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(final Long id) {
         orderRepository.delete(findById(id));
+    }
+
+    @Override
+    public Page<Order> findAllPaginated(Integer page, Integer linesPerPage, String direction, String orderBy) {
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                linesPerPage,
+                org.springframework.data.domain.Sort.Direction.valueOf(direction),
+                orderBy
+        );
+        return orderRepository.findAll(pageRequest);
+
     }
 
 
